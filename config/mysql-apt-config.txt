@@ -1,0 +1,16 @@
+mysql-community-server  mysql-community-server/root-pass        password
+mysql-community-server  mysql-community-server/re-root-pass     password
+mysql-apt-config        mysql-apt-config/repo-url       string  http://repo.mysql.com/apt
+mysql-apt-config        mysql-apt-config/preview-component      string
+mysql-community-server  mysql-community-server/remove-test-db   select  false
+mysql-apt-config        mysql-apt-config/tools-component        string  mysql-tools
+mysql-apt-config        mysql-apt-config/repo-distro    select  debian
+mysql-community-server  mysql-community-server/data-dir select
+mysql-apt-config        mysql-apt-config/unsupported-platform   select  abort
+mysql-apt-config        mysql-apt-config/select-tools   select  Enabled
+mysql-apt-config        mysql-apt-config/select-preview select  Disabled
+# Choices: mysql-8.0, mysql-cluster-8.0, None
+mysql-apt-config        mysql-apt-config/select-server  select  mysql-8.0
+# Choices: MySQL Server & Cluster (Currently selected: mysql-8.0), MySQL Tools & Connectors (Currently selected: Enabled), MySQL Preview Packages (Currently selected: Disabled), Ok
+mysql-apt-config        mysql-apt-config/select-product select  Ok
+mysql-apt-config        mysql-apt-config/repo-codename  select  bullseye

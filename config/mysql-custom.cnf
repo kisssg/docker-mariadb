@@ -1,0 +1,15 @@
+[mysqld]
+user = mysql
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+datadir = /var/lib/mysql
+secure-file-priv= NULL
+default-authentication-plugin=mysql_native_password
+default-time-zone = +08:00
+sql-mode = "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+bind-address = 0.0.0.0
+
+
+[client]
+port		= 3306
+socket		= /var/run/mysqld/mysqld.sock

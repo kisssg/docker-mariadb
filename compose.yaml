@@ -8,7 +8,7 @@ services:
       - ./my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf
       - ./tmp:/tmp/tmp
     networks:
-      - dbnet
+      - appnet
     environment:
       - MYSQL_DATABASE=apollo
       - MYSQL_USER=root
@@ -16,9 +16,33 @@ services:
       - MYSQL_PASSWORD=password
       - MARIADB_ROOT_HOST='%'
     ports:
-      - "3307:3306"
+      - 3307:3306 # Exposing on a different port to avoid conflict with my-workspace
+
+  my-workspace:
+    container_name: enf-workspace
+    image: my-workspace:latest
+    ports:
+      - 80:80
+      - 443:443
+      - 3306:3306  # Be cautious — overlaps with db service's internal port
+      - 6379:6379
+      - 11211:11211
+    env_file: config/.env
+    volumes:
+      - www:/srv/www/
+      - ./.ssh:/root/.ssh
+      - ./:/mnt/my-workspace/
+    restart: unless-stopped
+    privileged: true
+    shm_size: '2gb'
+    networks:
+      - appnet
+    depends_on:
+      - db
+
 volumes:
   db_data:
+  www:
 
 networks:
-  dbnet:
+  appnet:
