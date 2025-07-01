@@ -1,7 +1,11 @@
 # docker-mariadb
-## Import Data
-``` mysql -u root -p apollo < /tmp/tmp/apollo-by-james-20250123.sql
+## Export legacy data
+``` mysqldump --set-gtid-purged=OFF --default-character-set=utf8mb4 --skip-set-charset --skip-comments -u root -p apollo > dump2025070101.sql
 
+## Import data
+replace unsupported collation sets and import
+``` sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_general_ci/g' dump2025070101.sql
+``` mysql -u root -p apollo < /tmp/tmp/dump2025070101.sql
 
 ## QA
 Q1:I got this error while importing data to my mariadb 10.6 database, how to mercifully solve it: ERROR 1273 (HY000) at line 4108: Unknown collation: 'utf8mb4_0900_ai_ci'
